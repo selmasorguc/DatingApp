@@ -16,11 +16,14 @@
             <li class="nav-item">
               <a class="nav-link" routerLink="/messages"  routerLinkActive='active'>Messages</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/errors"  routerLinkActive='active'>Errors</a>
+            </li>
         </ng-container>
         </ul>
 
         <div class="dropdown" *ngIf="accountService.isLoggedIn()" dropdown>
-          <a class="dropdown-toggle text-light" dropdownToggle>Welcome {{accountService.getUsername()}}</a>
+          <a class="dropdown-toggle text-light" dropdownToggle>Welcome {{accountService.getUsername() | titlecase}}</a>
           <div class="dropdown-menu mt-3" *bsDropdownMenu>
             <a class="dropdown-item">Edit profile</a>
             <div class="dropdown-divider"></div>
