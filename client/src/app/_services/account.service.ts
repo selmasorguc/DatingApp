@@ -25,11 +25,23 @@ export class AccountService {
   }
 
   setCurrentUser(user: User){
+    localStorage.setItem('user', JSON.stringify(user));
     this.currentUserSource.next(user);
   }
+
   logout(){
     localStorage.removeItem('user');
     this.currentUserSource.next(undefined);
+  }
+
+  isLoggedIn(){
+    return localStorage.getItem('user') != null;
+  }
+
+  getUsername(){ 
+    if(localStorage.getItem('user')) return JSON.parse(<any>localStorage.getItem('user')).username;
+    return "";
+    
   }
 
   register(model: any){ 

@@ -3,7 +3,7 @@
     <div style="text-align: center;">
         <h1 style="margin-top: 100px;">Find your match</h1>
         <p class="lead">Come on in to view your matches. All you need to do is sign up!</p>
-        <div style="text-align: center;">
+        <div style="text-align: center;" *ngIf="registerMode">
             <button class="btn btn-primary btn-lg mr-2" (click)="registerToggle()" >Register</button>
             <button class="btn btn-secondary btn-lg">Learn more</button>
         </div>
