@@ -53,10 +53,11 @@ namespace API.Data
             return await _context.SaveChangesAsync() > 0;
         }
 
-        void IUserRepository.UpdateProfile(AppUser user)
+        void IUserRepository.UpdateProfile (MemberDTO user)
         {
             _context.Entry(user).State = EntityState.Modified;
         }
+
 
 
     }

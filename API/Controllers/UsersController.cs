@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using API.Controllers.DTOs;
-using API.Data;
 using API.Entities;
 using API.Interfaces;
 using AutoMapper;
@@ -43,6 +43,18 @@ namespace API.Controllers
         {
             return await _userRepository.GetMemberAsync(username);
             
+        }
+
+        [HttpPut]
+        public async Task<ActionResult> UpdateUser(MemberUpdateDto memberUpdateDto){
+            var username = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var user = await _userRepository.GetMemberAsync(username);
+
+            _mapper.Map(memberUpdateDto, user);
+            _userRepository.UpdateProfile(user);
+            if(await _userRepository.SaveAllAsync()) return NoContent();
+            return BadRequest("Failed to update profile");
+
         }
 
     }

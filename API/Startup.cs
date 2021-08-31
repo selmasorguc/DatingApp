@@ -36,7 +36,7 @@ namespace API
         {
             
             services.AddControllers();
-
+            
             services.AddApplicationServices(_config);
 
             services.AddSwaggerGen(c =>
@@ -46,6 +46,7 @@ namespace API
 
             services.AddCors();
             services.AddIdentityServices(_config);
+            //services.AddAutoMapper(typeof(Startup));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

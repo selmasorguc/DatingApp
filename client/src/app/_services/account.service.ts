@@ -20,13 +20,17 @@ export class AccountService {
         const user = response;
         if (user) localStorage.setItem('user', JSON.stringify(user)); 
         this.currentUserSource.next(user);
+        this.setCurrentUser(user);
       })
     );
+
   }
 
   setCurrentUser(user: User){
     localStorage.setItem('user', JSON.stringify(user));
     this.currentUserSource.next(user);
+   
+    console.log("set current user");
   }
 
   logout(){
@@ -38,6 +42,9 @@ export class AccountService {
     return localStorage.getItem('user') != null;
   }
 
+  getLoggedInUser(){
+    return JSON.parse(localStorage.getItem('user'));
+  }
   getUsername(){ 
     if(localStorage.getItem('user')) return JSON.parse(<any>localStorage.getItem('user')).username;
     return "";
