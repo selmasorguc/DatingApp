@@ -13,6 +13,7 @@ import { ToastrService } from 'ngx-toastr';
 export class NavComponent implements OnInit {
   model: any = {}
   currentUser$: Observable<User>;
+  user: User;
 
   constructor(public accountService: AccountService, private router: Router,
     private toastr: ToastrService) {
@@ -21,11 +22,13 @@ export class NavComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentUser$ = this.accountService.currentUser$;
+    this.user = this.accountService.getLoggedInUser();
   }
   
   login(){
     this.accountService.login(this.model).subscribe(response =>{  
-      this.router.navigateByUrl('/members');      
+      this.router.navigateByUrl('/members'); 
+      this.user = this.accountService.getLoggedInUser();        
      }, error => {
        console.log(error);
       })
