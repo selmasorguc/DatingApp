@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using API.Helpers;
 using API.Interfaces;
@@ -24,6 +25,7 @@ namespace API.Services
         }
         public async Task<ImageUploadResult> AddPhotosAsync(IFormFile file)
         {
+            Console.WriteLine("Uploading photos...");
             var uploadResult = new ImageUploadResult();
             if (file.Length > 0)
             {

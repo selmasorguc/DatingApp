@@ -18,17 +18,17 @@ const routes: Routes = [
     runGuardsAndResolvers: 'always',
     canActivate: [AuthGuard],
     children: [
-      { path: 'member/edit', component: MemberEditComponent },
-      { path: 'members/:username', component: MemberDetailComponent },
-      { path: 'lists', component: ListsComponent },
-      { path: 'messages', component: MessagesComponent },
-      { path: 'members', component: MemberListComponent },
       { path: 'errors', component: TestErrorsComponent },
       { path: 'not-found', component: NotFoundComponent },
       { path: 'server-error', component: ServerErrorComponent }
     ]
   },
 
+  { path: 'member/edit', component: MemberEditComponent },
+  { path: 'members/:username', component: MemberDetailComponent },
+  { path: 'lists', component: ListsComponent },
+  { path: 'messages', component: MessagesComponent },
+  { path: 'members', component: MemberListComponent },
   { path: '**', component: HomeComponent, pathMatch: 'full' },
   { path: '', component: HomeComponent }
 ];

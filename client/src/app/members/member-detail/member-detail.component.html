@@ -44,15 +44,9 @@
                 <h4>Interests</h4>
                 <p>{{member.interests}}</p>
             </tab>
-            <tab heading="Photos">
-                <!-- <ngx-gallery [options]="galleryOptions" 
-                [images]="" class="ngx-gallery" style='display: inline-block;margin-bottom: 20px;'></ngx-gallery> -->
-                <!-- <p *ngFor="let image of member.photos">{{image.url}}</p> -->
-                <div class="row" *ngFor="let image of member.photos">
-                    <div class="col-4">
-                        <img src="{{image.url}}" alt="{{member.knownAs}}">
-                    </div>
-                </div>
+            <tab heading='Photos'>
+                <ngx-gallery [options]="galleryOptions" [images]="galleryImages" 
+                    style="display: inline-block; margin-bottom: 20px;"></ngx-gallery>
             </tab>
             <tab heading="Messages">
                 <h4>Messages</h4>

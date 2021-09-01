@@ -20,27 +20,26 @@ export class MemberDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadMember();    
-    this.galleryOptions = [{
-      width: '500px', 
-      height: '500px',
-      imagePercent: 100, 
-      thumbnailsColumns: 4,
-      imageAnimation: NgxGalleryAnimation.Slide,
-      preview: false
-    }];
+    this.galleryOptions = [
+      {
+        width: '500px',
+        height: '500px',
+        imagePercent: 100,
+        thumbnailsColumns: 4,
+        imageAnimation: NgxGalleryAnimation.Slide,
+        preview: false
+      }
+    ]
   }
 
   getImages(): NgxGalleryImage[] {
     const imageUrls = [];
-
-    for(const photo of this.member.photos) {
-      imageUrls.push(
-        {
-          small: photo?.url,
-          media: photo?.url, 
-          big: photo?.url
-        }
-      );
+    for (const photo of this.member.photos) {
+      imageUrls.push({
+        small: photo?.url,
+        medium: photo?.url,
+        big: photo?.url
+      })
     }
     return imageUrls;
   }
@@ -52,4 +51,6 @@ export class MemberDetailComponent implements OnInit {
       this.urls = this.member.photos.map(x => x.url);
     });
   }
+
+  
 }
