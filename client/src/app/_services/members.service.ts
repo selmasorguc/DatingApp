@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Member } from '../_models/member';
+import { UserParams } from '../_models/userParams';
 
 @Injectable({
   providedIn: 'root'
@@ -11,25 +12,39 @@ import { Member } from '../_models/member';
 export class MembersService {
   baseUrl: string = "https://localhost:5001/api";
   members: Member[] = [];
-  paginatedResult: PaginatedResult<Member[]> = new PaginatedResult<Member[]>();
+
   constructor(private http: HttpClient) { }
 
-  getMembers(page?: number, itemsPerPage?: number, ) {
-    let params = new HttpParams();
-    if(page != null && itemsPerPage != null) {
-      params = params.append('pageNumber', page.toString());
-      params = params.append('pageSize', itemsPerPage.toString());
-    } 
-    return this.http.get<Member[]>(this.baseUrl + '/users', {observe: 'response', params}).pipe(
+  getMembers(userParams: UserParams) {
+
+    let params = this.getPaginationHeaders(userParams.pageNumber, userParams.pageSize);
+    params = params.append('minAge', userParams.minAge.toString());
+    params = params.append('maxAge', userParams.maxAge.toString());
+    params = params.append('gender', userParams.gender);
+
+    return this.getPaginatedResult<Member[]>(this.baseUrl + "/users",params);
+  }
+
+  private getPaginatedResult<T>(url, params) {
+    const paginatedResult: PaginatedResult<T> = new PaginatedResult<T>();
+    return this.http.get<T>(url, { observe: 'response', params }).pipe(
       map(response => {
-        this.paginatedResult.result = response.body;
-        if(response.headers.get('Pagination') !== null){
-          this.paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+        paginatedResult.result = response.body;
+        if (response.headers.get('Pagination') !== null) {
+          paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
         }
-        return this.paginatedResult;
+        return paginatedResult;
       })
     );
   }
+
+  private getPaginationHeaders(pageNumber: number, pageSize: number) {
+    let params = new HttpParams();
+    params = params.append('pageNumber', pageNumber.toString());
+    params = params.append('pageSize', pageSize.toString());
+    return params;
+  }
+
 
   getMember(username: string) {
     const member = this.members.find(x => x.userName === username);
@@ -47,7 +62,7 @@ export class MembersService {
     );
   }
 
-  setMainPhoto(photoId: number) { 
+  setMainPhoto(photoId: number) {
     return this.http.put(this.baseUrl + '/users/set-main-photo/' + photoId, {});
   }
 
