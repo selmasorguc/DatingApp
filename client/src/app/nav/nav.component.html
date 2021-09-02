@@ -23,7 +23,7 @@
         </ul>
 
         <div class="dropdown" *ngIf="accountService.isLoggedIn()" dropdown>
-          <img src="{{user.photoUrl}}" class="img-responsive"alt="{{accountService.getUsername()}}">
+          <img  src="{{user.photoUrl || './assets/user.png'}}" class="img-responsive"alt="{{accountService.getUsername()}}">
           <a class="dropdown-toggle text-light" dropdownToggle>Welcome {{accountService.getUsername() | titlecase}}</a>
           <div class="dropdown-menu mt-3" *bsDropdownMenu>
             <a routerLink="/member/edit" class="dropdown-item">Edit profile</a>
