@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using API.Controllers.DTOs;
 using API.Entities;
+using API.Helpers;
 using API.Interfaces;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
@@ -28,9 +29,12 @@ namespace API.Data
             .ProjectTo<MemberDTO>(_mapper.ConfigurationProvider).SingleOrDefaultAsync();
         }
 
-        public async Task<IEnumerable<MemberDTO>> GetMembersAsync()
+        public async Task<PagedList<MemberDTO>> GetMembersAsync(UserParams userParams)
         {
-            return await _context.Users.ProjectTo<MemberDTO>(_mapper.ConfigurationProvider).ToListAsync();
+            var query = _context.Users.ProjectTo<MemberDTO>(_mapper.ConfigurationProvider)
+            .AsNoTracking();
+
+            return await PagedList<MemberDTO>.CreateAsync(query, userParams.PageNumber, userParams.PageSize);
         }
 
         async Task<AppUser> IUserRepository.GetUserByIdAsync(int id)
@@ -53,7 +57,7 @@ namespace API.Data
             return await _context.SaveChangesAsync() > 0;
         }
 
-        void IUserRepository.UpdateProfile (MemberDTO user)
+        void IUserRepository.UpdateProfile(MemberDTO user)
         {
             _context.Entry(user).State = EntityState.Modified;
         }
