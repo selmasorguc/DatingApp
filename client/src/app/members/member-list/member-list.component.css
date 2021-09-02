@@ -1,0 +1,12 @@
+ input{
+    padding: 5px;
+}
+select{
+    padding: 5px;
+   
+}
+
+select option{
+    background-color: blanchedalmond;
+    color: #fc346f;
+}

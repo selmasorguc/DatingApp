@@ -15,11 +15,14 @@ import { MembersService } from 'src/app/_services/members.service';
   templateUrl: './member-list.component.html',
   styleUrls: ['./member-list.component.css']
 })
+
 export class MemberListComponent implements OnInit {
   members: Member[];
   pagination: Pagination;
   userParams: UserParams;
   user: User;
+  genderList = [{ value: 'male', display: 'Males' }, { value: 'female', display: 'Females' }];
+
 
   constructor(private memberService: MembersService, private accountService: AccountService) {
     this.user = this.accountService.getLoggedInUser();
@@ -39,6 +42,11 @@ export class MemberListComponent implements OnInit {
 
   pageChanged(event: any) {
     this.userParams.pageNumber = event.page;
+    this.loadMembers();
+  }
+
+  resetFilters() {
+    this.userParams = new UserParams(this.user);
     this.loadMembers();
   }
 
