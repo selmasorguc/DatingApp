@@ -30,7 +30,11 @@ import { TextInputComponent } from './_forms/text-input/text-input.component';
 import { DateInputComponent } from './_forms/date-input/date-input.component';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { MemberMessagesComponent } from './members/member-messages/member-messages.component';
-
+import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
+import { HasRoleDirective } from './_directives/has-role.directive';
+import { RolesModalComponent } from './modals/roles-modal/roles-modal.component';
+import {PhotoManagementComponent} from './admin/photo-managment/photo-managment.component';
+import {UserManagementComponent} from './admin/user-managment/user-managment.component'
 
 @NgModule({
   declarations: [
@@ -52,7 +56,12 @@ import { MemberMessagesComponent } from './members/member-messages/member-messag
     DateInputComponent,
     MemberMessagesComponent,
     DateInputComponent,
-    MemberMessagesComponent
+    PhotoManagementComponent,
+    UserManagementComponent,
+    AdminPanelComponent,
+    RolesModalComponent,
+    HasRoleDirective
+    
   ],
   imports: [
     BrowserModule,

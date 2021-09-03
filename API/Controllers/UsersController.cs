@@ -31,8 +31,9 @@ namespace API.Controllers
         }
 
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<MemberDTO>>> GetUsers([FromQuery]UserParams userParams)
+        public async Task<ActionResult<IEnumerable<MemberDTO>>> GetUsers([FromQuery] UserParams userParams)
         {
             //var users = await _userRepository.GetMembersAsync();
             var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
@@ -43,7 +44,7 @@ namespace API.Controllers
 
             var users = await _userRepository.GetMembersAsync(userParams);
 
-            Response.AddPaginationHeader(users.CurrentPage, users.PageSize, 
+            Response.AddPaginationHeader(users.CurrentPage, users.PageSize,
                 users.TotalCount, users.TotalPages);
 
             return Ok(users);
@@ -55,6 +56,7 @@ namespace API.Controllers
         //     return await _userRepository.GetUserByIdAsync(id);
         // }
 
+        [Authorize(Roles = "Member")]
         [HttpGet("{username}", Name = "GetUser")]
         public async Task<ActionResult<MemberDTO>> GetUser(string username)
         {
