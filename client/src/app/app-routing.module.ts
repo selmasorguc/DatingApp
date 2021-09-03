@@ -11,6 +11,7 @@ import { MemberListComponent } from './members/member-list/member-list.component
 import { MessagesComponent } from './messages/messages.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { PreventUnsavedChangesGuard } from './_guards/prevent-unsaved-changes.guard';
+import { MemberDetailedResolver } from './_resolvers/member-detailed.resolver.ts ';
 
 const routes: Routes = [
   {
@@ -24,13 +25,13 @@ const routes: Routes = [
     ]
   },
 
+  { path: 'home', component: HomeComponent },
   { path: 'member/edit', component: MemberEditComponent },
-  { path: 'members/:username', component: MemberDetailComponent },
+  { path: 'members/:username', component: MemberDetailComponent, resolve: {member: MemberDetailedResolver} },
   { path: 'lists', component: ListsComponent },
   { path: 'messages', component: MessagesComponent },
   { path: 'members', component: MemberListComponent },
-  { path: '**', component: HomeComponent, pathMatch: 'full' },
-  { path: '', component: HomeComponent }
+  { path: '**', component: HomeComponent, pathMatch: 'full' }
 ];
 
 @NgModule({

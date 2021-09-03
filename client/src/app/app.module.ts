@@ -28,6 +28,9 @@ import { LoadingInterceptor } from './_interceptors/loading.interceptor';
 import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
 import { TextInputComponent } from './_forms/text-input/text-input.component';
 import { DateInputComponent } from './_forms/date-input/date-input.component';
+import { CarouselModule } from 'ngx-bootstrap/carousel';
+import { MemberMessagesComponent } from './members/member-messages/member-messages.component';
+
 
 @NgModule({
   declarations: [
@@ -46,7 +49,10 @@ import { DateInputComponent } from './_forms/date-input/date-input.component';
     MemberEditComponent,
     PhotoEditorComponent,
     TextInputComponent,
-    DateInputComponent
+    DateInputComponent,
+    MemberMessagesComponent,
+    DateInputComponent,
+    MemberMessagesComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +62,8 @@ import { DateInputComponent } from './_forms/date-input/date-input.component';
     FormsModule,
     SharedModule,
     NgxSpinnerModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CarouselModule.forRoot()
 
   ],
   providers: [
